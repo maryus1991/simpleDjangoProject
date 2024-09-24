@@ -44,7 +44,6 @@ INSTALLED_APPS = [
 
     'accounts',
     'todo',
-    'api_v1'
 ]
 
 MIDDLEWARE = [
