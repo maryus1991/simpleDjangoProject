@@ -9,6 +9,8 @@ class CustomTokenObtainPairViewSerializer(TokenObtainPairSerializer):
         validated_data['username'] = self.user.username
         validated_data['user_id'] = self.user.pk
 
+
+
         if self.user.is_active:
             return validated_data
         raise serializers.ValidationError(
@@ -16,3 +18,4 @@ class CustomTokenObtainPairViewSerializer(TokenObtainPairSerializer):
                 'detail': 'please activate your accounts'
             }
         )
+

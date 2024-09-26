@@ -7,7 +7,7 @@ from .views import CustomTokenObtainPairView
 
 
 urlpatterns = [
-    path('get-token/', CustomTokenObtainPairView.as_view()),
+    path('get-token/', CustomTokenObtainPairView.as_view(), name='jwt_get_token'),
     path('refresh/', TokenRefreshView.as_view()),
     path('verify/', TokenVerifyView.as_view())
 ]
