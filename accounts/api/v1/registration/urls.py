@@ -3,10 +3,10 @@ from .views import RegistrationAPIView, UpdateProfile, ChangePassword, Activatio
 
 
 urlpatterns = [
-    path('registration/', RegistrationAPIView.as_view()),
-    path('profile/', UpdateProfile.as_view()),
-    path('change_password/', ChangePassword.as_view()),
+    path('registration/', RegistrationAPIView.as_view(), name='registration-api'),
+    path('profile/', UpdateProfile.as_view(), name='update-profile'),
+    path('change_password/', ChangePassword.as_view(), name='change-password'),
     path('conform/<str:token>', ActivationsAPIView.as_view(),  name='conform-account'),
-    path('reset-password/', ResetPassWordSendEmail.as_view()),
+    path('reset-password/', ResetPassWordSendEmail.as_view(), name='resetPasswordSendEmail'),
     path('reset-password/<str:token>', ResetPassWordFromToken.as_view(),  name='ResetPassword'),
 ]
