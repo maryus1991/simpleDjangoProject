@@ -1,0 +1,23 @@
+name: Todo App Test
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: Build Docker Todo Compose 
+      run: docker compose up -d
+
+    - name: Run Flake 
+      run: docker compose exec todo sh -c 'flake8 .'
+
+    - name: Run PyTest
+      run: docker compose exec todo sh -c 'pytest .'
