@@ -162,7 +162,7 @@ class UpdateProfile(RetrieveUpdateAPIView):
         return user
 
 
-class ChangePassword(UpdateAPIView):
+class ChangePassword(GenericAPIView):
     model = User
     permission_classes = [IsAuthenticated]
     serializer_class = UserModelSerializerChangePass
@@ -171,7 +171,7 @@ class ChangePassword(UpdateAPIView):
         user = self.request.user
         return user
 
-    def put(self, request, *arg, **kwargs):
+    def post(self, request, *arg, **kwargs):
 
         user = self.get_object()
         serializer = self.serializer_class(data=request.data)

@@ -42,6 +42,7 @@ class UserModelSerializerProfile(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ['username', 'email', 'first_name', 'last_name', 'is_staff', 'is_active', 'date_joined', 'last_login']
+        read_only_fields = ['is_staff', 'is_active', 'date_joined', 'last_login']
 
 
 class UserModelSerializerChangePass(serializers.ModelSerializer):
@@ -72,8 +73,6 @@ class ResetPasswordSerializer(serializers.Serializer):
 class UserModelSerializerResetPass(serializers.Serializer):
     new_password = serializers.CharField(max_length=255)
     conform_new_password = serializers.CharField(write_only=True, max_length=255)
-
-
 
     def validate(self, attrs):
         if attrs.get('new_password') != attrs.get('conform_new_password'):
