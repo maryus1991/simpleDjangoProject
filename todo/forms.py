@@ -6,19 +6,22 @@ from .models import Todo
 class TodoForm(forms.ModelForm):
     class Meta:
         model = Todo
-        fields = ['title']
+        fields = ["title"]
         widgets = {
-            'title': forms.TextInput(attrs={'class': 'form-control m-auto',
-                                            'placeholder': 'Enter a title'
-                                            }),
+            "title": forms.TextInput(
+                attrs={"class": "form-control m-auto", "placeholder": "Enter a title"}
+            ),
         }
 
 
 class TodoDoneCheckForm(forms.ModelForm):
     class Meta:
         model = Todo
-        fields = ['done']
+        fields = ["done"]
         widgets = {
-            'title': forms.CheckboxInput(attrs={'class': 'form-control m-auto',
-                                                }),
+            "title": forms.CheckboxInput(
+                attrs={
+                    "class": "form-control m-auto",
+                }
+            ),
         }

@@ -5,13 +5,18 @@ from django.shortcuts import get_object_or_404
 from jwt.exceptions import ExpiredSignatureError, InvalidSignatureError
 from mail_templated import EmailMessage
 from rest_framework import status
-from rest_framework.generics import GenericAPIView, RetrieveUpdateAPIView, UpdateAPIView
+from rest_framework.generics import GenericAPIView, RetrieveUpdateAPIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 
-from .serializer import UserModelSerializerRegistration, UserModelSerializerProfile, UserModelSerializerChangePass, \
-    ResetPasswordSerializer , UserModelSerializerResetPass
+from .serializer import (
+    UserModelSerializerRegistration,
+    UserModelSerializerProfile,
+    UserModelSerializerChangePass,
+    ResetPasswordSerializer,
+    UserModelSerializerResetPass,
+)
 from .utils import SendEmailThread
 
 User = get_user_model()
@@ -23,16 +28,14 @@ class ResetPassWordFromToken(GenericAPIView):
 
     def get(self, request, token, *arg, **kwargs):
         return Response(
-            {'token': token},
+            {"token": token},
             status=status.HTTP_202_ACCEPTED,
         )
 
     def post(self, request, token, *arg, **kwargs):
 
         try:
-            token = jwt.decode(
-                token, settings.SECRET_KEY, algorithms=["HS256"]
-            )
+            token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
             user_id = token.get("user_id")
 
         except ExpiredSignatureError:
@@ -51,11 +54,10 @@ class ResetPassWordFromToken(GenericAPIView):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
 
-        user_obj.set_password(serializer.validated_data.get('new_password'))
+        user_obj.set_password(serializer.validated_data.get("new_password"))
 
         return Response(
-             'your password has been change'
-        ,
+            "your password has been change",
             status=status.HTTP_202_ACCEPTED,
         )
 
@@ -66,7 +68,7 @@ class ResetPassWordSendEmail(GenericAPIView):
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         serializer.is_valid(raise_exception=True)
-        email = serializer.validated_data.get('email')
+        email = serializer.validated_data.get("email")
         user = get_object_or_404(User, email=email)
         token = self.get_token_for_user(user)
 
@@ -87,9 +89,7 @@ class ResetPassWordSendEmail(GenericAPIView):
 class ActivationsAPIView(GenericAPIView):
     def get(self, request, token, *arg, **kwargs):
         try:
-            token = jwt.decode(
-                token, settings.SECRET_KEY, algorithms=["HS256"]
-            )
+            token = jwt.decode(token, settings.SECRET_KEY, algorithms=["HS256"])
             user_id = token.get("user_id")
 
         except ExpiredSignatureError:
@@ -125,7 +125,7 @@ class RegistrationAPIView(GenericAPIView):
     def post(self, request):
         serializer = self.serializer_class(data=request.data)
         if serializer.is_valid():
-            email = serializer.validated_data.get('email')
+            email = serializer.validated_data.get("email")
             serializer.save()
 
             user_obj = get_object_or_404(User, email=email)
@@ -139,13 +139,14 @@ class RegistrationAPIView(GenericAPIView):
             )
             SendEmailThread(email_message).start()
 
-            return Response({
-                'detail': 'your account create successfully and send email'
-            }, status=status.HTTP_200_OK)
+            return Response(
+                {"detail": "your account create successfully and send email"},
+                status=status.HTTP_200_OK,
+            )
         else:
-            return Response({
-                'detail': 'invalid request'
-            }, status=status.HTTP_400_BAD_REQUEST)
+            return Response(
+                {"detail": "invalid request"}, status=status.HTTP_400_BAD_REQUEST
+            )
 
     def get_token_for_user(self, user):
         refresh = RefreshToken.for_user(user)
@@ -178,17 +179,19 @@ class ChangePassword(GenericAPIView):
 
         if serializer.is_valid():
 
-            if not user.check_password(serializer.data.get('password')):
+            if not user.check_password(serializer.data.get("password")):
                 return Response(
                     {"current_password": "wrong password"},
                     status=status.HTTP_400_BAD_REQUEST,
                 )
 
-            user.set_password(serializer.data.get('new_password'))
+            user.set_password(serializer.data.get("new_password"))
             user.save()
 
             return Response(
-                {"details": "your password has been change successfully", },
+                {
+                    "details": "your password has been change successfully",
+                },
                 status=status.HTTP_200_OK,
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
