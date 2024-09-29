@@ -46,20 +46,15 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
-
-
-
-    'django_celery_beat',
+    "django_celery_beat",
     "rest_framework",
     "rest_framework.authtoken",
     "django_filters",
     "drf_yasg",
     "rest_framework_simplejwt",
     "mail_templated",
-
     "todo",
     "accounts",
-
 ]
 
 MIDDLEWARE = [
@@ -154,7 +149,7 @@ EMAIL_PORT = 25
 
 
 # celery config
-CELERY_BROKER_URL = 'redis://todo-redis:6379/1'
+CELERY_BROKER_URL = "redis://todo-redis:6379/1"
 
 # CELERY_BEAT_SCHEDULE = {
 #     'destroy_done_tasks_form_todo_model':{

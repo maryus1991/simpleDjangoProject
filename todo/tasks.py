@@ -12,4 +12,4 @@ def destroy_done_tasks_form_todo_model():
     # objects.delete()
     # objects.save()
 
-    print('done!!!')
+    print("done!!!")
