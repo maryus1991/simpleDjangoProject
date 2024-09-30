@@ -157,3 +157,16 @@ CELERY_BEAT_SCHEDULE = {
         "schedule": 5 * 2 * 60,
     }
 }
+
+# caching
+
+CACHE = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATIONS': 'redis://todo-redis:6379/2',
+        # 'TIMEOUT': 100,
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient'
+        }
+    }
+}
