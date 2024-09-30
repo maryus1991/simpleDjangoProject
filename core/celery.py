@@ -6,12 +6,10 @@ from celery import Celery
 # from todo.tasks import destroy_done_tasks_form_todo_model
 
 
-
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "core.settings")
 app = Celery("core")
 app.config_from_object("django.conf:settings", namespace="CELERY")
 app.autodiscover_tasks()
-
 
 
 # @app.on_after_finalize.connect
