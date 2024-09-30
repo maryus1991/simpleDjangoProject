@@ -20,7 +20,9 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
-        user: User = User.objects.get_or_create(username="root", email='maryus19915123@gmail.com')
+        user: User = User.objects.get_or_create(
+            username="root", email="maryus19915123@gmail.com"
+        )
         faker = Faker()
 
         if user[1]:

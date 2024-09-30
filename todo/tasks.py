@@ -14,5 +14,4 @@ def destroy_done_tasks_form_todo_model():
         item.is_delete = True
         item.save()
 
-    print('done!!!')
-
+    print("done!!!")
