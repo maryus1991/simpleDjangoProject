@@ -156,9 +156,9 @@ EMAIL_PORT = 25
 # celery config
 CELERY_BROKER_URL = 'redis://todo-redis:6379/1'
 
-# CELERY_BEAT_SCHEDULE = {
-#     'destroy_done_tasks_form_todo_model':{
-#         'task': 'accounts.tasks.destroy_done_tasks_form_todo_model',
-#         'schedule': 60 * 10
-#     }
-# }
+CELERY_BEAT_SCHEDULE = {
+    'destroy_done_tasks_form_todo_model': {
+        'task': 'todo.tasks.destroy_done_tasks_form_todo_model',
+        'schedule': 5 * 2 * 60
+    }
+}
