@@ -1,8 +1,10 @@
 from django.urls import path, include
+from .views import RegisterView
 
 urlpatterns = [
-    path("token/", include("accounts.api.v1.token.urls")),
-    path("user/", include("accounts.api.v1.registration.urls")),
-    path("jwt/", include("accounts.api.v1.jwt.urls")),
-    path("weather/", include("accounts.api.v1.weather.urls")),
+    path("register/", RegisterView.as_view(), name="register"),
+    path("api/v1/token/", include("accounts.api.v1.token.urls")),
+    path("api/v1/user/", include("accounts.api.v1.registration.urls")),
+    path("api/v1/jwt/", include("accounts.api.v1.jwt.urls")),
+    path("api/v1/weather/", include("accounts.api.v1.weather.urls")),
 ]

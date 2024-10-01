@@ -37,19 +37,19 @@
 
             <li class="list-group-item d-flex justify-content-between align-items-center">
                 <form action="{% url 'update' todo.id %}" method="post">
-                    <input name="title" value="{{ todo.title }}" class="btn">
+                    <button type="submit" class="btn text-capitalize text-white text-lg-end rounded-circle btn-success"> edit</button>
 
                     {% csrf_token %}
                     <label for="coding">done:</label>
                     <input type="checkbox" name="done" value="done" {% if todo.done %} checked {% endif %}
-                           class="checkbox pull-right " id="coding">
+                           class="checkbox pull-right text-capitalize text-white text-lg-end " id="coding">
 
-                    <button type="submit" class="btn btn-success"> edit</button>
+                    <input name="title" width="75%"  value="{{ todo.title }}" class="btn text-capitalize text-white text-lg-end">
 
                 </form>
                 <form action="{% url 'delete' todo.id %}" method="post">
                     {% csrf_token %}
-                    <button type="submit" class="btn btn-danger">
+                    <button type="submit" class="btn rounded-circle btn-danger">
                         <i class="far fa-trash-alt delete"></i>
 
                     </button>
@@ -60,14 +60,23 @@
 
     </ul>
 
-    <form class="add text-center my-4" action="{% url 'create' %}" method="post">
-        {% csrf_token %}
-        {{ add_form.title }}
-        <br/>
-        <div class="text-center">
-            <button type="submit" class="btn btn-light"> SUBMIT </button>
-        </div>
-    </form>
+    <div>
+
+        <form class="add text-center my-4" id="createTodo" action="{% url 'create' %}" method="POST" >
+
+            {% csrf_token %}
+            {{ add_form.title }}
+
+            <br/>
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-light" onclick="document.querySelector('#createTodo').submit()"> SUBMIT </button>
+            </div>
+
+        </form>
+
+    </div>
+
     {% if request.user.is_authenticated %}
         <div class="add text-center my-4">
             <form action="{% url 'logout' %}" method="post">

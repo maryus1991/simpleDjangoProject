@@ -9,9 +9,14 @@ from .forms import TodoForm
 # Create your views here.
 class TodoListView(LoginRequiredMixin, ListView):
     model = Todo
-    queryset = Todo.objects.all()
+    # queryset = Todo.objects.all()
     context_object_name = "todos"
     template_name = "todo/index.html"
+
+    def get_queryset(self):
+        user = self.request.user
+        if user.is_authenticated:
+            return Todo.objects.filter(user=user).all()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -33,7 +38,15 @@ class TodoUpdateView(LoginRequiredMixin, UpdateView):
     fields = ["done", "title"]
     success_url = reverse_lazy("index")
 
+    def form_valid(self, form):
+        if self.object.user.id == self.request.user.id:
+            return super().form_valid(form)
+
 
 class TodoDeleteView(LoginRequiredMixin, DeleteView):
     model = Todo
     success_url = reverse_lazy("index")
+
+    def form_valid(self, form):
+        if self.object.user.id == self.request.user.id:
+            return super().form_valid(form)
