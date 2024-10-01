@@ -23,9 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-jz00@(l^0cnji-c_a9%2^)bi=67j_fs*x_w%tg(9_*2z=-kccx"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": [
@@ -90,10 +90,25 @@ WSGI_APPLICATION = "core.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.sqlite3",
+#         "NAME": BASE_DIR / "db.sqlite3",
+#     }
+# }
+
+"""
+ postgres configurations 
+"""
+
 DATABASES = {
     "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "todoCore",
+        "USER": "root",
+        "PASSWORD": 123,
+        "HOST": "postgres",
+        "PORT": 5432,
     }
 }
 
@@ -147,7 +162,6 @@ EMAIL_HOST_USER = "info@mez.ir"
 EMAIL_HOST_PASSWORD = ""
 EMAIL_PORT = 25
 
-
 # celery config
 CELERY_BROKER_URL = "redis://todo-redis:6379/1"
 
@@ -161,12 +175,10 @@ CELERY_BEAT_SCHEDULE = {
 # caching
 
 CACHE = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATIONS': 'redis://todo-redis:6379/2',
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATIONS": "redis://todo-redis:6379/2",
         # 'TIMEOUT': 100,
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient'
-        }
+        "OPTIONS": {"CLIENT_CLASS": "django_redis.client.DefaultClient"},
     }
 }

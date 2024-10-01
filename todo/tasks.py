@@ -9,7 +9,7 @@ def destroy_done_tasks_form_todo_model():
     for deleting data that has been done
     """
 
-    objects = Todo.objects.filter(done=True).delete()
+    objects = Todo.objects.filter(done=True).all()
     for item in objects:
         item.is_delete = True
         item.save()

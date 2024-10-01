@@ -26,8 +26,11 @@ class Command(BaseCommand):
         faker = Faker()
 
         if user[1]:
-            user.set_password(123)
-            user.save()
+            user[0].set_password("123")
+            user[0].is_active = True
+            user[0].is_staff = True
+            user[0].is_superuser = True
+            user[0].save()
 
         for _ in range(5):
             Todo.objects.create(

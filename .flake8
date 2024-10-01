@@ -9,5 +9,5 @@ exclude =
     manage.py,
     __pycache__,
     venv,
-    setting.py,
+    settings.py,
     __init__,
