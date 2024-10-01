@@ -12,9 +12,9 @@ class WeatherAPI(APIView):
 
     @method_decorator(cache_page(10 * 2 * 60))
     def get(self, request):
-        url = '''
+        url = """
             https://api.openweathermap.org/data/1/weather?q=Isfahan,iran&APPID={key}
-                '''
+                """
 
         response = requests.get(url)
 

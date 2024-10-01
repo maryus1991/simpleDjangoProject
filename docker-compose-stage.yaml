@@ -1,0 +1,64 @@
+version: '3.9'
+
+services:
+  todo :
+    build: .
+    expose:
+      - '8000:8000'
+    container_name: todo
+    command: gunicorn core.wsgi --bind 0.0.0.0:8000 && celery -A core beat -l info
+
+
+    volumes:
+      - .:/app
+      - todo_static_volume:/app/static
+      - todo_media_volume:/app/media
+    depends_on:
+      - redis
+      - postgres
+
+  redis:
+    container_name: todo-redis
+    image: redis
+    restart: always
+    ports:
+    - "6379:6379"
+    command: redis-server --save 60 1 --loglevel warning
+
+  worker :
+    build: .
+    command: celery -A core worker --loglevel=info
+
+    depends_on:
+      - redis
+      - todo
+    volumes:
+      - ./:/app
+
+  postgres:
+    image: postgres
+    volumes:
+      - todo_postgres:/var/lib/postgresql/data/
+
+    environment:
+      - POSTGRES_USER=root
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_DB=todoCore
+
+  nginx:
+    image: nginx
+    container_name: todo_nginx
+    ports:
+      - "80:80"
+    depends_on:
+      - todo
+    volumes:
+      - ./default.conf:/etc/nginx/conf.d/default.conf
+      - todo_static_volume:/home/app/static
+      - todo_media_volume:/home/app/media
+
+
+volumes:
+  todo_static_volume:
+  todo_postgres:
+  todo_media_volume:
