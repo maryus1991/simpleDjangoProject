@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-jz00@(l^0cnji-c_a9%2^)bi=67j_fs*x_w%tg(9_*2z=-kccx"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["*"]
 
@@ -101,12 +101,22 @@ WSGI_APPLICATION = "core.wsgi.application"
  postgres configurations 
 """
 
+# DATABASES = {
+#     "default": {
+#         "ENGINE": "django.db.backends.postgresql",
+#         "NAME": "mebrahi2_todo",
+#         "USER": "mebrahi2_root",
+#         "PASSWORD": 'yf0.Mww6i.wc',
+#         "HOST": "localhost",
+#         "PORT": 5432,
+#     }
+# }
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "todoCore",
         "USER": "root",
-        "PASSWORD": 123,
+        "PASSWORD": '123',
         "HOST": "postgres",
         "PORT": 5432,
     }
