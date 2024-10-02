@@ -16,7 +16,7 @@ jobs:
     - name: Build Docker Todo Compose 
       run: docker compose up -d
 
-    - name: Run Flake 
+    - name: Run Flake8
       run: docker compose exec todo sh -c 'flake8 .'
 
     # - name: Run PyTest
