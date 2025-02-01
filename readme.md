@@ -40,7 +40,8 @@ API Client picture (swagger and DRF):
 2. This app is Django and python base 
 3. API are totally complete and can use them in other template 
 4. This project is render base too how is it in pictures
-5. This app have Celery Worker for delete the done tasks of user 
+5. This app have Celery Worker for delete the done tasks of user after a 
+6. And This project has a CI CD for Automated testing, building, and deployment with GitHub Actions
 
 # Installation
 ## 1 .Install Docker 
@@ -74,5 +75,16 @@ docker compose exec blog sh -c 'python manage.py migrate'
 ```bash
 docker compose exec blog sh -c 'python manage.py createsuperuser'
 ```
-### NOTE: After running the command you should enter email and password
-<br>
+#### NOTE: After running the command you should enter email and password
+### and now should serv the static files for doing this just run below code 
+
+```bash
+docker compose exec blog sh -c 'python manage.py collectstatic --no-input'
+```
+### now you able to enter the admin panel with super user that you create 
+### for enter the admin panel just visit '{domain}/admin/' 
+#### for use this project just sign in and the login and write and done your task
+
+# License and Contact 
+This project is licensed under the MIT License and
+For contact me :  maryus19915123@gmail.com  
